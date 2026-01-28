@@ -1,15 +1,15 @@
 // API Configuration
 export const config = {
-  // ElevenLabs TTS
+  // Pixa TTS
   heypixa: {
     baseUrl: "https://hindi.heypixa.ai/api/v1",
-    voice: "neha", // Voice ID for Devi
+    voice: "neha", // Voice ID for Neha
   },
 
-  // Pixa TTS
+  // ElevenLabs TTS
   elevenlabs: {
     baseUrl: "https://api.elevenlabs.io/v1",
-    voiceId: "gWIZtiCcYnvLguTazwbO", // Neha voice
+    voiceId: "gWIZtiCcYnvLguTazwbO", // Devi voice
     modelId: "eleven_turbo_v2_5",
   },
 
@@ -21,7 +21,7 @@ export const config = {
 
   // Sample generation settings
   samples: {
-    countPerProvider: 10, // 10 samples each from ElevenLabs and Pixa
+    countPerProvider: 10, // 10 samples each from Pixa and ElevenLabs
   },
 } as const;
 

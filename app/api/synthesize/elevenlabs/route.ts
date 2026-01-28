@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       count: samples.length,
     });
   } catch (error) {
-    console.error("Error synthesizing with Pixa:", error);
+    console.error("Error synthesizing with ElevenLabs:", error);
     return NextResponse.json(
       {
         success: false,
@@ -34,4 +34,4 @@ export async function POST(request: NextRequest) {
 }
 
 // Increase timeout for this route since we're generating multiple samples
-export const maxDuration = 120; // 120 seconds (Pixa may need more time with rate limits)
+export const maxDuration = 120; // 120 seconds (ElevenLabs may need more time with rate limits)

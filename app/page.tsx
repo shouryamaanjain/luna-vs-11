@@ -10,7 +10,7 @@ export default function Home() {
             TTS Comparison Platform
           </h1>
           <p className="text-muted-foreground mt-2">
-            Compare ElevenLabs (Devi) vs Pixa (Neha) Text-to-Speech quality with 
+            Compare Pixa (Neha) vs ElevenLabs (Devi) Text-to-Speech quality with 
             Gemini-powered multi-language analysis
           </p>
         </div>
@@ -38,7 +38,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="hover:text-foreground transition-colors"
               >
-                ElevenLabs
+                Pixa
               </a>
               <a
                 href="https://elevenlabs.io"
@@ -46,7 +46,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="hover:text-foreground transition-colors"
               >
-                Pixa
+                ElevenLabs
               </a>
             </div>
           </div>

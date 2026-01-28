@@ -64,10 +64,10 @@ export function ComparisonPanel() {
     setError("");
     setHeypixaSamples([]);
     setElevenlabsSamples([]);
-    setProgress({ current: 0, total: 2, message: "Generating ElevenLabs samples..." });
+    setProgress({ current: 0, total: 2, message: "Generating Pixa samples..." });
 
     try {
-      // Generate ElevenLabs samples
+      // Generate Pixa samples
       const heypixaResponse = await fetch("/api/synthesize/heypixa", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -76,13 +76,13 @@ export function ComparisonPanel() {
       const heypixaData = await heypixaResponse.json();
 
       if (!heypixaData.success) {
-        throw new Error(heypixaData.error || "Failed to generate ElevenLabs samples");
+        throw new Error(heypixaData.error || "Failed to generate Pixa samples");
       }
 
       setHeypixaSamples(heypixaData.samples);
-      setProgress({ current: 1, total: 2, message: "Generating Pixa samples..." });
+      setProgress({ current: 1, total: 2, message: "Generating ElevenLabs samples..." });
 
-      // Generate Pixa samples
+      // Generate ElevenLabs samples
       const elevenlabsResponse = await fetch("/api/synthesize/elevenlabs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -91,7 +91,7 @@ export function ComparisonPanel() {
       const elevenlabsData = await elevenlabsResponse.json();
 
       if (!elevenlabsData.success) {
-        throw new Error(elevenlabsData.error || "Failed to generate Pixa samples");
+        throw new Error(elevenlabsData.error || "Failed to generate ElevenLabs samples");
       }
 
       setElevenlabsSamples(elevenlabsData.samples);
@@ -250,12 +250,12 @@ export function ComparisonPanel() {
       {/* Audio Samples Grid */}
       {hasAudio && (
         <div className="grid md:grid-cols-2 gap-6">
-          {/* ElevenLabs Samples */}
+          {/* Pixa Samples */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Badge className="bg-emerald-600">ElevenLabs</Badge>
-                <span className="text-lg">Samples (Devi)</span>
+                <Badge className="bg-emerald-600">Pixa</Badge>
+                <span className="text-lg">Samples (Neha)</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -293,12 +293,12 @@ export function ComparisonPanel() {
             </CardContent>
           </Card>
 
-          {/* Pixa Samples */}
+          {/* ElevenLabs Samples */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Badge className="bg-violet-600">Pixa</Badge>
-                <span className="text-lg">Samples (Neha)</span>
+                <Badge className="bg-violet-600">ElevenLabs</Badge>
+                <span className="text-lg">Samples (Devi)</span>
               </CardTitle>
             </CardHeader>
             <CardContent>

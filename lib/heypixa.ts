@@ -1,7 +1,7 @@
 import { config, AudioSample } from "./config";
 
 /**
- * Synthesize speech using ElevenLabs TTS API
+ * Synthesize speech using Pixa TTS API
  * Based on docs: POST https://hindi.heypixa.ai/api/v1/synthesize
  */
 export async function synthesizeElevenLabs(
@@ -30,7 +30,7 @@ export async function synthesizeElevenLabs(
   if (!response.ok) {
     const errorText = await response.text();
     throw new Error(
-      `ElevenLabs synthesis failed: ${response.status} ${response.statusText} - ${errorText}`
+      `Pixa synthesis failed: ${response.status} ${response.statusText} - ${errorText}`
     );
   }
 
@@ -59,7 +59,7 @@ export async function synthesizeElevenLabs(
 }
 
 /**
- * Generate multiple samples from ElevenLabs
+ * Generate multiple samples from Pixa
  */
 export async function generateElevenLabsSamples(
   text: string,
@@ -76,7 +76,7 @@ export async function generateElevenLabsSamples(
       const sample = await synthesizeElevenLabs(text, i);
       samples.push(sample);
     } catch (error) {
-      console.error(`Failed to generate ElevenLabs sample ${i}:`, error);
+      console.error(`Failed to generate Pixa sample ${i}:`, error);
       throw error;
     }
   }
@@ -85,7 +85,7 @@ export async function generateElevenLabsSamples(
 }
 
 /**
- * Get available voices from ElevenLabs config endpoint
+ * Get available voices from Pixa config endpoint
  */
 export async function getElevenLabsConfig(): Promise<{
   voices: Array<{ id: string; name: string; description: string; available: boolean }>;
@@ -97,7 +97,7 @@ export async function getElevenLabsConfig(): Promise<{
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error(`Failed to get ElevenLabs config: ${response.status}`);
+    throw new Error(`Failed to get Pixa config: ${response.status}`);
   }
 
   return response.json();

@@ -119,7 +119,7 @@ export function AudioSampleCard({
                 : "bg-violet-600 hover:bg-violet-700 text-white"
             }
           >
-            {sample.provider === "heypixa" ? "ElevenLabs" : "Pixa"}
+            {sample.provider === "heypixa" ? "Pixa" : "ElevenLabs"}
           </Badge>
           <span className="text-sm text-muted-foreground">
             Sample #{sample.sampleIndex + 1}

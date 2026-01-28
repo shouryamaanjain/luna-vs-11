@@ -41,10 +41,10 @@ ORIGINAL TEXT TO BE SPOKEN:
 
 You will receive 20 audio samples in the following order:
 
-HEYPIXA SAMPLES (Voice: Devi) - 10 samples:
+HEYPIXA SAMPLES (Voice: Neha) - 10 samples:
   heypixa-1, heypixa-2, heypixa-3, heypixa-4, heypixa-5, heypixa-6, heypixa-7, heypixa-8, heypixa-9, heypixa-10
 
-ELEVENLABS SAMPLES (Voice: Neha) - 10 samples:
+ELEVENLABS SAMPLES (Voice: Devi) - 10 samples:
   elevenlabs-1, elevenlabs-2, elevenlabs-3, elevenlabs-4, elevenlabs-5, elevenlabs-6, elevenlabs-7, elevenlabs-8, elevenlabs-9, elevenlabs-10
 
 Each audio sample is labeled with its name (e.g., "=== AUDIO: heypixa-1 ==="). 
@@ -206,7 +206,7 @@ export async function generateCritique(
   const genAI = getGeminiClient();
   const model = genAI.getGenerativeModel({ model: config.gemini.proModel });
 
-  // Sort samples: ElevenLabs first (0-9), then Pixa (10-19)
+  // Sort samples: Pixa first (0-9), then ElevenLabs (10-19)
   const sortedSamples = [...samples].sort((a, b) => {
     if (a.provider !== b.provider) {
       return a.provider === "heypixa" ? -1 : 1;
@@ -218,7 +218,7 @@ export async function generateCritique(
   const parts: Part[] = [
     { text: getCritiquePrompt(originalText) },
     { text: "\n\n=== AUDIO SAMPLES START ===\n" },
-    { text: "The following audio samples are in order: first all 10 ElevenLabs samples (heypixa-1 through heypixa-10), then all 10 Pixa samples (elevenlabs-1 through elevenlabs-10).\n" },
+    { text: "The following audio samples are in order: first all 10 Pixa samples (heypixa-1 through heypixa-10), then all 10 ElevenLabs samples (elevenlabs-1 through elevenlabs-10).\n" },
   ];
 
   // Add each audio sample as inline data with clear naming

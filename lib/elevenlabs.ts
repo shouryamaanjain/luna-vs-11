@@ -1,7 +1,7 @@
 import { config, AudioSample } from "./config";
 
 /**
- * Synthesize speech using Pixa TTS API
+ * Synthesize speech using ElevenLabs TTS API
  * Based on docs: POST https://api.elevenlabs.io/v1/text-to-speech/{voice_id}
  */
 export async function synthesizePixa(
@@ -42,7 +42,7 @@ export async function synthesizePixa(
   if (!response.ok) {
     const errorText = await response.text();
     throw new Error(
-      `Pixa synthesis failed: ${response.status} ${response.statusText} - ${errorText}`
+      `ElevenLabs synthesis failed: ${response.status} ${response.statusText} - ${errorText}`
     );
   }
 
@@ -55,7 +55,7 @@ export async function synthesizePixa(
   // Convert to base64
   const base64 = Buffer.from(audioBuffer).toString("base64");
 
-  // Pixa returns MP3 by default
+  // ElevenLabs returns MP3 by default
   const contentType = response.headers.get("content-type") || "audio/mpeg";
 
   return {
@@ -71,7 +71,7 @@ export async function synthesizePixa(
 }
 
 /**
- * Generate multiple samples from Pixa with retry logic
+ * Generate multiple samples from ElevenLabs with retry logic
  */
 export async function generatePixaSamples(
   text: string,
@@ -98,7 +98,7 @@ export async function generatePixaSamples(
       } catch (error) {
         lastError = error as Error;
         console.error(
-          `Failed to generate Pixa sample ${i} (attempt ${retry + 1}):`,
+          `Failed to generate ElevenLabs sample ${i} (attempt ${retry + 1}):`,
           error
         );
 
@@ -118,7 +118,7 @@ export async function generatePixaSamples(
 }
 
 /**
- * Get voice information from Pixa
+ * Get voice information from ElevenLabs
  */
 export async function getPixaVoice(): Promise<{
   voice_id: string;
@@ -139,7 +139,7 @@ export async function getPixaVoice(): Promise<{
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to get Pixa voice: ${response.status}`);
+    throw new Error(`Failed to get ElevenLabs voice: ${response.status}`);
   }
 
   return response.json();

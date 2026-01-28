@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "TTS Comparison Platform",
-  description: "Compare ElevenLabs and Pixa Text-to-Speech quality with Gemini-powered analysis",
+  description: "Compare Pixa and ElevenLabs Text-to-Speech quality with Gemini-powered analysis",
 };
 
 export default function RootLayout({

@@ -1,11 +1,11 @@
 # TTS Comparison Platform
 
-Compare ElevenLabs and Pixa Text-to-Speech quality with Gemini-powered multi-language analysis.
+Compare Pixa and ElevenLabs Text-to-Speech quality with Gemini-powered multi-language analysis.
 
 ## Features
 
 - **Multi-language Text Generation**: Uses Gemini Flash to generate challenging text samples containing English, Hinglish (Hindi in Roman script), and Hindi (Devanagari)
-- **Dual TTS Synthesis**: Generates 10 audio samples each from ElevenLabs (Devi voice) and Pixa (Neha voice)
+- **Dual TTS Synthesis**: Generates 10 audio samples each from Pixa (Neha voice) and ElevenLabs (Devi voice)
 - **AI-Powered Critique**: Gemini Pro analyzes all 20 samples for:
   - Pronunciation errors
   - Accent inconsistencies (e.g., Hindi words spoken with English accent)
@@ -36,7 +36,7 @@ Edit `.env.local` with your API keys:
 # Get your key from: https://aistudio.google.com/apikey
 GOOGLE_AI_API_KEY=your_google_ai_key_here
 
-# Pixa API Key
+# ElevenLabs API Key
 # Get your key from: https://elevenlabs.io/app/settings/api-keys
 ELEVENLABS_API_KEY=your_elevenlabs_key_here
 ```
@@ -61,8 +61,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - **Framework**: Next.js 14 (App Router) with TypeScript
 - **UI**: Tailwind CSS + shadcn/ui
 - **TTS Providers**:
-  - ElevenLabs (Voice: Devi)
-  - Pixa (Voice: Neha, Model: v2.5-turbo)
+  - Pixa (Voice: Neha)
+  - ElevenLabs (Voice: Devi, Model: v2.5-turbo)
 - **AI Analysis**:
   - Gemini 3 Flash Preview (text generation)
   - Gemini 3 Pro Preview (audio critique)
@@ -72,8 +72,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | Route | Method | Description |
 |-------|--------|-------------|
 | `/api/generate-text` | POST | Generate challenging multi-language text |
-| `/api/synthesize/heypixa` | POST | Generate ElevenLabs TTS samples |
-| `/api/synthesize/elevenlabs` | POST | Generate Pixa TTS samples |
+| `/api/synthesize/heypixa` | POST | Generate Pixa TTS samples |
+| `/api/synthesize/elevenlabs` | POST | Generate ElevenLabs TTS samples |
 | `/api/critique` | POST | Generate Gemini Pro critique report |
 
 ## Project Structure
@@ -86,8 +86,8 @@ eleven-luna/
 │   └── api/
 │       ├── generate-text/route.ts    # Gemini Flash text generation
 │       ├── synthesize/
-│       │   ├── heypixa/route.ts      # ElevenLabs TTS
-│       │   └── elevenlabs/route.ts   # Pixa TTS
+│       │   ├── heypixa/route.ts      # Pixa TTS
+│       │   └── elevenlabs/route.ts   # ElevenLabs TTS
 │       └── critique/route.ts         # Gemini Pro critique
 ├── components/
 │   ├── ComparisonPanel.tsx           # Main comparison interface
@@ -97,8 +97,8 @@ eleven-luna/
 ├── lib/
 │   ├── config.ts                     # API configuration & types
 │   ├── gemini.ts                     # Gemini API client
-│   ├── heypixa.ts                    # ElevenLabs TTS client
-│   └── elevenlabs.ts                 # Pixa TTS client
+│   ├── heypixa.ts                    # Pixa TTS client
+│   └── elevenlabs.ts                 # ElevenLabs TTS client
 └── .env.local                        # API keys (not committed)
 ```
 

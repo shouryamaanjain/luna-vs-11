@@ -32,8 +32,8 @@ export function CritiqueReport({ report }: CritiqueReportProps) {
               {report.comparison.winner === "tie"
                 ? "Tie"
                 : report.comparison.winner === "heypixa"
-                ? "ElevenLabs"
-                : "Pixa"}
+                ? "Pixa"
+                : "ElevenLabs"}
             </Badge>
           </CardTitle>
         </CardHeader>
@@ -76,11 +76,11 @@ export function CritiqueReport({ report }: CritiqueReportProps) {
             />
           </div>
 
-          {/* Reasoning - hidden for now */}
-          {/* <div className="mt-6 p-4 bg-muted rounded-lg">
+          {/* Analysis Reasoning */}
+          <div className="mt-6 p-4 bg-muted rounded-lg">
             <h4 className="font-medium mb-2">Analysis Reasoning</h4>
             <p className="text-sm text-muted-foreground">{report.comparison.reasoning}</p>
-          </div> */}
+          </div>
         </CardContent>
       </Card>
 
@@ -88,10 +88,10 @@ export function CritiqueReport({ report }: CritiqueReportProps) {
       <Tabs defaultValue="heypixa">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="heypixa" className="data-[state=active]:bg-emerald-100">
-            ElevenLabs Analysis
+            Pixa Analysis
           </TabsTrigger>
           <TabsTrigger value="elevenlabs" className="data-[state=active]:bg-violet-100">
-            Pixa Analysis
+            ElevenLabs Analysis
           </TabsTrigger>
         </TabsList>
         <TabsContent value="heypixa">
@@ -125,12 +125,12 @@ function ScoreComparison({
       <h4 className="text-sm font-medium mb-2">{label}</h4>
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <span className="text-xs w-20 text-emerald-600">ElevenLabs</span>
+          <span className="text-xs w-20 text-emerald-600">Pixa</span>
           <Progress value={heypixa} className="flex-1 h-2" />
           <span className="text-xs w-8 text-right">{heypixa}</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xs w-20 text-violet-600">Pixa</span>
+          <span className="text-xs w-20 text-violet-600">ElevenLabs</span>
           <Progress value={elevenlabs} className="flex-1 h-2" />
           <span className="text-xs w-8 text-right">{elevenlabs}</span>
         </div>
@@ -152,7 +152,7 @@ function ProviderAnalysisCard({
     <Card>
       <CardHeader>
         <CardTitle className={`text-${color}-600`}>
-          {provider === "heypixa" ? "ElevenLabs" : "Pixa"} Detailed Analysis
+          {provider === "heypixa" ? "Pixa" : "ElevenLabs"} Detailed Analysis
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">

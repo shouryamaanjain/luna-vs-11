@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       count: samples.length,
     });
   } catch (error) {
-    console.error("Error synthesizing with ElevenLabs:", error);
+    console.error("Error synthesizing with Pixa:", error);
     return NextResponse.json(
       {
         success: false,
