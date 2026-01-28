@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TTS Comparison Platform
 
-## Getting Started
+Compare ElevenLabs and Pixa Text-to-Speech quality with Gemini-powered multi-language analysis.
 
-First, run the development server:
+## Features
+
+- **Multi-language Text Generation**: Uses Gemini Flash to generate challenging text samples containing English, Hinglish (Hindi in Roman script), and Hindi (Devanagari)
+- **Dual TTS Synthesis**: Generates 10 audio samples each from ElevenLabs (Devi voice) and Pixa (Neha voice)
+- **AI-Powered Critique**: Gemini Pro analyzes all 20 samples for:
+  - Pronunciation errors
+  - Accent inconsistencies (e.g., Hindi words spoken with English accent)
+  - Audio artifacts (clicks, pops, unnatural pauses)
+  - Cross-sample consistency
+  - Overall quality scores
+
+## Setup
+
+### 1. Install Dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure Environment Variables
+
+Copy the example environment file and add your API keys:
+
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local` with your API keys:
+
+```env
+# Google AI API Key (for Gemini models)
+# Get your key from: https://aistudio.google.com/apikey
+GOOGLE_AI_API_KEY=your_google_ai_key_here
+
+# Pixa API Key
+# Get your key from: https://elevenlabs.io/app/settings/api-keys
+ELEVENLABS_API_KEY=your_elevenlabs_key_here
+```
+
+### 3. Run the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Generate Text**: Click "Generate Text" to create a challenging multi-language text sample
+2. **Generate Audio**: Click "Generate Audio Samples" to synthesize 10 samples from each provider
+3. **Listen & Compare**: Play individual samples to hear the differences
+4. **Generate Critique**: Click "Generate Critique" for a detailed AI analysis
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework**: Next.js 14 (App Router) with TypeScript
+- **UI**: Tailwind CSS + shadcn/ui
+- **TTS Providers**:
+  - ElevenLabs (Voice: Devi)
+  - Pixa (Voice: Neha, Model: v2.5-turbo)
+- **AI Analysis**:
+  - Gemini 3 Flash Preview (text generation)
+  - Gemini 3 Pro Preview (audio critique)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## API Routes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Route | Method | Description |
+|-------|--------|-------------|
+| `/api/generate-text` | POST | Generate challenging multi-language text |
+| `/api/synthesize/heypixa` | POST | Generate ElevenLabs TTS samples |
+| `/api/synthesize/elevenlabs` | POST | Generate Pixa TTS samples |
+| `/api/critique` | POST | Generate Gemini Pro critique report |
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+eleven-luna/
+├── app/
+│   ├── page.tsx                      # Main comparison UI
+│   ├── layout.tsx                    # Root layout
+│   └── api/
+│       ├── generate-text/route.ts    # Gemini Flash text generation
+│       ├── synthesize/
+│       │   ├── heypixa/route.ts      # ElevenLabs TTS
+│       │   └── elevenlabs/route.ts   # Pixa TTS
+│       └── critique/route.ts         # Gemini Pro critique
+├── components/
+│   ├── ComparisonPanel.tsx           # Main comparison interface
+│   ├── AudioSampleCard.tsx           # Individual audio player
+│   ├── CritiqueReport.tsx            # Critique report display
+│   └── ui/                           # shadcn components
+├── lib/
+│   ├── config.ts                     # API configuration & types
+│   ├── gemini.ts                     # Gemini API client
+│   ├── heypixa.ts                    # ElevenLabs TTS client
+│   └── elevenlabs.ts                 # Pixa TTS client
+└── .env.local                        # API keys (not committed)
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+MIT
