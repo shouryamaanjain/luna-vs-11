@@ -61,3 +61,12 @@ export async function POST(request: NextRequest) {
 
 // Increase timeout for this route since Gemini Pro analysis may take time
 export const maxDuration = 300; // 5 minutes
+
+// Increase body size limit for this route (audio samples are large)
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "50mb",
+    },
+  },
+};
