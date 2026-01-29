@@ -179,19 +179,6 @@ export default function ReportPage() {
                   <Badge variant="outline">
                     Model: {getModelName(report.elevenlabs_model)}
                   </Badge>
-                  {report.winner && (
-                    <Badge
-                      className={
-                        report.winner === "heypixa"
-                          ? "bg-emerald-100 text-emerald-700"
-                          : report.winner === "elevenlabs"
-                          ? "bg-violet-100 text-violet-700"
-                          : "bg-gray-100 text-gray-700"
-                      }
-                    >
-                      {report.winner === "heypixa" ? "Pixa Leads" : report.winner === "elevenlabs" ? "ElevenLabs Leads" : "Tie"}
-                    </Badge>
-                  )}
                 </div>
               </div>
             </div>

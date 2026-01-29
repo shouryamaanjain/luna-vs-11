@@ -61,18 +61,9 @@ export function ReportsList({ onNewReport }: ReportsListProps) {
     router.push(`/report/${id}`);
   };
 
-  const getStatusBadge = (status: string, winner: string | null) => {
+  const getStatusBadge = (status: string) => {
     if (status === "completed") {
-      const winnerColors: Record<string, string> = {
-        heypixa: "bg-emerald-100 text-emerald-700",
-        elevenlabs: "bg-violet-100 text-violet-700",
-        tie: "bg-gray-100 text-gray-700",
-      };
-      return (
-        <Badge className={winnerColors[winner || "tie"]}>
-          {winner === "heypixa" ? "Pixa Leads" : winner === "elevenlabs" ? "ElevenLabs Leads" : "Tie"}
-        </Badge>
-      );
+      return <Badge className="bg-green-100 text-green-700">Completed</Badge>;
     }
     if (status === "generating") {
       return <Badge className="bg-yellow-100 text-yellow-700">Generating...</Badge>;
@@ -134,7 +125,7 @@ export function ReportsList({ onNewReport }: ReportsListProps) {
                       minute: "2-digit",
                     })}
                   </CardTitle>
-                  {getStatusBadge(report.status, report.winner)}
+                  {getStatusBadge(report.status)}
                 </div>
               </CardHeader>
               <CardContent>

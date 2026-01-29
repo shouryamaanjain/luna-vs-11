@@ -16,25 +16,7 @@ export function CritiqueReport({ report }: CritiqueReportProps) {
       {/* Summary Card */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <span>Analysis Summary</span>
-            <Badge
-              variant="outline"
-              className={
-                report.comparison.winner === "heypixa"
-                  ? "border-emerald-500 text-emerald-600"
-                  : report.comparison.winner === "elevenlabs"
-                  ? "border-violet-500 text-violet-600"
-                  : "border-gray-500 text-gray-600"
-              }
-            >
-              {report.comparison.winner === "tie"
-                ? "Tie"
-                : report.comparison.winner === "heypixa"
-                ? "Pixa Leads"
-                : "ElevenLabs Leads"}
-            </Badge>
-          </CardTitle>
+          <CardTitle>Analysis Summary</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-6">
