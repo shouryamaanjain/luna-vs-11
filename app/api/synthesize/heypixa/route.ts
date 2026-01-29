@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateElevenLabsSamples } from "@/lib/heypixa";
+import { generateHeyPixaSamples } from "@/lib/heypixa";
 import { config } from "@/lib/config";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { text, count = config.samples.countPerProvider } = body;
+    const { text, count = config.samples.countPerText } = body as { text?: string; count?: number };
 
     if (!text) {
       return NextResponse.json(
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const samples = await generateElevenLabsSamples(text, count);
+    const samples = await generateHeyPixaSamples(text, count);
 
     return NextResponse.json({
       success: true,

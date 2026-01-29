@@ -1,3 +1,5 @@
+import type { ElevenLabsModel, TextCategory } from "./database.types";
+
 // API Configuration
 export const config = {
   // Pixa TTS
@@ -10,7 +12,12 @@ export const config = {
   elevenlabs: {
     baseUrl: "https://api.elevenlabs.io/v1",
     voiceId: "gWIZtiCcYnvLguTazwbO", // Devi voice
-    modelId: "eleven_turbo_v2_5",
+    defaultModelId: "eleven_turbo_v2_5" as ElevenLabsModel,
+    availableModels: [
+      { id: "eleven_v3" as ElevenLabsModel, name: "Eleven V3 (Latest)", description: "Latest and most advanced model" },
+      { id: "eleven_flash_v2_5" as ElevenLabsModel, name: "Eleven Flash V2.5", description: "Fast generation with good quality" },
+      { id: "eleven_turbo_v2_5" as ElevenLabsModel, name: "Eleven Turbo V2.5", description: "Optimized for speed" },
+    ],
   },
 
   // Gemini Models
@@ -21,8 +28,15 @@ export const config = {
 
   // Sample generation settings
   samples: {
-    countPerProvider: 10, // 10 samples each from Pixa and ElevenLabs
+    countPerText: 3, // 3 samples per text per provider
   },
+
+  // Text categories for report generation
+  textCategories: [
+    { id: "names_places" as TextCategory, name: "Names & Places", description: "Hindi names, cities, and landmarks" },
+    { id: "currencies" as TextCategory, name: "Currencies", description: "Money amounts and financial terms" },
+    { id: "date_time" as TextCategory, name: "Date & Time", description: "Dates, times, and durations" },
+  ],
 } as const;
 
 // Types for audio samples

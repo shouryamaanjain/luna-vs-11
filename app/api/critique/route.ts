@@ -1,15 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateCritique } from "@/lib/gemini";
+import { generateCritique, generateCritiqueSingleText, AudioSampleWithText } from "@/lib/gemini";
 import { AudioSample } from "@/lib/config";
+
+interface TextItem {
+  category: string;
+  text: string;
+}
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { text, samples } = body as { text: string; samples: AudioSample[] };
+    const { text, texts, samples } = body as {
+      text?: string;
+      texts?: TextItem[];
+      samples: (AudioSample | AudioSampleWithText)[];
+    };
 
-    if (!text) {
+    // Support both old format (single text) and new format (multiple texts)
+    const hasTexts = texts && Array.isArray(texts) && texts.length > 0;
+    const hasSingleText = typeof text === "string" && text.length > 0;
+
+    if (!hasTexts && !hasSingleText) {
       return NextResponse.json(
-        { success: false, error: "Text is required" },
+        { success: false, error: "Text or texts array is required" },
         { status: 400 }
       );
     }
@@ -21,7 +34,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const report = await generateCritique(text, samples);
+    let report;
+    if (hasTexts) {
+      // New format: multiple texts with samples that have textIndex
+      report = await generateCritique(texts, samples as AudioSampleWithText[]);
+    } else {
+      // Legacy format: single text
+      report = await generateCritiqueSingleText(text!, samples);
+    }
 
     return NextResponse.json({
       success: true,

@@ -4,7 +4,7 @@ import { config, AudioSample } from "./config";
  * Synthesize speech using Pixa TTS API
  * Based on docs: POST https://hindi.heypixa.ai/api/v1/synthesize
  */
-export async function synthesizeElevenLabs(
+export async function synthesizeHeyPixa(
   text: string,
   sampleIndex: number
 ): Promise<AudioSample> {
@@ -58,12 +58,15 @@ export async function synthesizeElevenLabs(
   };
 }
 
+// Legacy alias for backward compatibility (old code used wrong name)
+export const synthesizeElevenLabs = synthesizeHeyPixa;
+
 /**
  * Generate multiple samples from Pixa
  */
-export async function generateElevenLabsSamples(
+export async function generateHeyPixaSamples(
   text: string,
-  count: number = config.samples.countPerProvider
+  count: number = config.samples.countPerText
 ): Promise<AudioSample[]> {
   const samples: AudioSample[] = [];
 
@@ -73,7 +76,7 @@ export async function generateElevenLabsSamples(
       if (i > 0) {
         await new Promise((resolve) => setTimeout(resolve, 500));
       }
-      const sample = await synthesizeElevenLabs(text, i);
+      const sample = await synthesizeHeyPixa(text, i);
       samples.push(sample);
     } catch (error) {
       console.error(`Failed to generate Pixa sample ${i}:`, error);
@@ -84,10 +87,13 @@ export async function generateElevenLabsSamples(
   return samples;
 }
 
+// Legacy alias for backward compatibility
+export const generateElevenLabsSamples = generateHeyPixaSamples;
+
 /**
  * Get available voices from Pixa config endpoint
  */
-export async function getElevenLabsConfig(): Promise<{
+export async function getHeyPixaConfig(): Promise<{
   voices: Array<{ id: string; name: string; description: string; available: boolean }>;
   default_voice: string;
   sample_rate: number;
@@ -102,3 +108,6 @@ export async function getElevenLabsConfig(): Promise<{
 
   return response.json();
 }
+
+// Legacy alias for backward compatibility
+export const getElevenLabsConfig = getHeyPixaConfig;

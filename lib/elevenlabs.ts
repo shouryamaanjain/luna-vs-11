@@ -1,12 +1,14 @@
 import { config, AudioSample } from "./config";
+import type { ElevenLabsModel } from "./database.types";
 
 /**
  * Synthesize speech using ElevenLabs TTS API
  * Based on docs: POST https://api.elevenlabs.io/v1/text-to-speech/{voice_id}
  */
-export async function synthesizePixa(
+export async function synthesizeElevenLabs(
   text: string,
-  sampleIndex: number
+  sampleIndex: number,
+  modelId: ElevenLabsModel = config.elevenlabs.defaultModelId
 ): Promise<AudioSample> {
   const apiKey = process.env.ELEVENLABS_API_KEY;
   if (!apiKey) {
@@ -26,7 +28,7 @@ export async function synthesizePixa(
     },
     body: JSON.stringify({
       text: text,
-      model_id: config.elevenlabs.modelId,
+      model_id: modelId,
       voice_settings: {
         stability: 0.5,
         similarity_boost: 0.75,
@@ -70,12 +72,16 @@ export async function synthesizePixa(
   };
 }
 
+// Legacy alias for backward compatibility
+export const synthesizePixa = synthesizeElevenLabs;
+
 /**
  * Generate multiple samples from ElevenLabs with retry logic
  */
-export async function generatePixaSamples(
+export async function generateElevenLabsSamples(
   text: string,
-  count: number = config.samples.countPerProvider
+  count: number = config.samples.countPerText,
+  modelId: ElevenLabsModel = config.elevenlabs.defaultModelId
 ): Promise<AudioSample[]> {
   const samples: AudioSample[] = [];
   const maxRetries = 3;
@@ -91,7 +97,7 @@ export async function generatePixaSamples(
           await new Promise((resolve) => setTimeout(resolve, delay));
         }
 
-        const sample = await synthesizePixa(text, i);
+        const sample = await synthesizeElevenLabs(text, i, modelId);
         samples.push(sample);
         lastError = null;
         break;
@@ -116,6 +122,9 @@ export async function generatePixaSamples(
 
   return samples;
 }
+
+// Legacy alias for backward compatibility
+export const generatePixaSamples = generateElevenLabsSamples;
 
 /**
  * Get voice information from ElevenLabs

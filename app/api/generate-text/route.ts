@@ -1,13 +1,28 @@
-import { NextResponse } from "next/server";
-import { generateTextSample } from "@/lib/gemini";
+import { NextRequest, NextResponse } from "next/server";
+import { generateTextSample, generateAllCategoryTexts } from "@/lib/gemini";
+import type { TextCategory } from "@/lib/database.types";
 
-export async function POST() {
+export async function POST(request: NextRequest) {
   try {
-    const text = await generateTextSample();
+    const body = await request.json().catch(() => ({}));
+    const { category, generateAll } = body as { category?: TextCategory; generateAll?: boolean };
+
+    // Generate all category texts at once
+    if (generateAll) {
+      const texts = await generateAllCategoryTexts();
+      return NextResponse.json({
+        success: true,
+        texts,
+      });
+    }
+
+    // Generate single text for specific category
+    const text = await generateTextSample(category || "custom");
 
     return NextResponse.json({
       success: true,
       text,
+      category: category || "custom",
     });
   } catch (error) {
     console.error("Error generating text:", error);

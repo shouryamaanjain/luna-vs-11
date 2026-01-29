@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generatePixaSamples } from "@/lib/elevenlabs";
+import { generateElevenLabsSamples } from "@/lib/elevenlabs";
 import { config } from "@/lib/config";
+import type { ElevenLabsModel } from "@/lib/database.types";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { text, count = config.samples.countPerProvider } = body;
+    const { 
+      text, 
+      count = config.samples.countPerText,
+      modelId = config.elevenlabs.defaultModelId 
+    } = body as { text?: string; count?: number; modelId?: ElevenLabsModel };
 
     if (!text) {
       return NextResponse.json(
@@ -14,12 +19,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const samples = await generatePixaSamples(text, count);
+    const samples = await generateElevenLabsSamples(text, count, modelId);
 
     return NextResponse.json({
       success: true,
       samples,
       count: samples.length,
+      modelId,
     });
   } catch (error) {
     console.error("Error synthesizing with ElevenLabs:", error);
