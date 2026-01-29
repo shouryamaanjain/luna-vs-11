@@ -70,7 +70,7 @@ export function ReportsList({ onNewReport }: ReportsListProps) {
       };
       return (
         <Badge className={winnerColors[winner || "tie"]}>
-          Winner: {winner === "heypixa" ? "Pixa" : winner === "elevenlabs" ? "ElevenLabs" : "Tie"}
+          {winner === "heypixa" ? "Pixa Leads" : winner === "elevenlabs" ? "ElevenLabs Leads" : "Tie"}
         </Badge>
       );
     }

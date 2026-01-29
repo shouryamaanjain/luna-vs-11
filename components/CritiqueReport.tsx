@@ -28,12 +28,11 @@ export function CritiqueReport({ report }: CritiqueReportProps) {
                   : "border-gray-500 text-gray-600"
               }
             >
-              Winner:{" "}
               {report.comparison.winner === "tie"
                 ? "Tie"
                 : report.comparison.winner === "heypixa"
-                ? "Pixa"
-                : "ElevenLabs"}
+                ? "Pixa Leads"
+                : "ElevenLabs Leads"}
             </Badge>
           </CardTitle>
         </CardHeader>

@@ -189,7 +189,7 @@ export default function ReportPage() {
                           : "bg-gray-100 text-gray-700"
                       }
                     >
-                      Winner: {report.winner === "heypixa" ? "Pixa" : report.winner === "elevenlabs" ? "ElevenLabs" : "Tie"}
+                      {report.winner === "heypixa" ? "Pixa Leads" : report.winner === "elevenlabs" ? "ElevenLabs Leads" : "Tie"}
                     </Badge>
                   )}
                 </div>

@@ -14,7 +14,7 @@ export const config = {
     voiceId: "gWIZtiCcYnvLguTazwbO", // Devi voice
     defaultModelId: "eleven_turbo_v2_5" as ElevenLabsModel,
     availableModels: [
-      { id: "eleven_v3" as ElevenLabsModel, name: "Eleven V3 (Latest)", description: "Latest and most advanced model" },
+      { id: "eleven_v3" as ElevenLabsModel, name: "Eleven V3 (Alpha)", description: "Alpha and most advanced model" },
       { id: "eleven_flash_v2_5" as ElevenLabsModel, name: "Eleven Flash V2.5", description: "Fast generation with good quality" },
       { id: "eleven_turbo_v2_5" as ElevenLabsModel, name: "Eleven Turbo V2.5", description: "Optimized for speed" },
     ],
